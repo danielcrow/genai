@@ -1,5 +1,6 @@
 import string
-from fastapi import FastAPI, HTTPException, APIRouter
+from fastapi import Depends, FastAPI, HTTPException, APIRouter
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.openapi.utils import get_openapi
 from pydantic import BaseModel
 from app.genai import get_details
@@ -9,6 +10,8 @@ class Message(BaseModel):
 
 
 app = FastAPI()
+security = HTTPBasic()
+
 
 def custom_openapi():
     if app.openapi_schema:
@@ -23,7 +26,7 @@ def custom_openapi():
     return app.openapi_schema
 
 @app.get("/getQuestions")
-def root(question ) -> Message:
+def root(question:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> Message:
     value = get_details(question)
     return {"message": value}
 
