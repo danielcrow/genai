@@ -24,9 +24,9 @@ def custom_openapi():
         return app.openapi_schema
     
     openapi_schema = get_openapi(
-        title="DC-WatsonX.ai",
+        title="DC-WatsonX.ai Recruitment",
         version="1.0.0",
-        description="Get Interview Questions",
+        description="Recruitment",
         openapi_version="3.0.0",
         routes=app.routes,
     )
@@ -46,7 +46,7 @@ def custom_openapi():
 
 app.openapi = custom_openapi
 
-@app.get("/getQuestions",summary="Get Interview Questions")
+@app.get("/getQuestions",summary="Get Sample Interview Questions",description="Get Sample Interview Questions")
 def root(question:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> Message:
     value = get_details(question)
     return {"message": value}
