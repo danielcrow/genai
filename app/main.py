@@ -46,7 +46,7 @@ def custom_openapi():
 
 app.openapi = custom_openapi
 
-@app.get("/getQuestions",summary="Get Sample Interview Questions",description="Get Sample Interview Questions")
+@app.get("/getQuestions",summary="Get Sample Interview Questions",description="Get Sample Interview Questions", operation_id="GetRecruitmentQuestions")
 def root(question:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> Message:
     value = get_details(question)
     return {"message": value}
