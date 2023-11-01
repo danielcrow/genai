@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 def getModel():
     credentials = setEnviroment()
     project_id=os.getenv("PROJECT_ID", None)
+    print(project_id)
     params = {
         GenParams.DECODING_METHOD: "sample",
         GenParams.MAX_NEW_TOKENS: 500,
@@ -26,7 +27,6 @@ def getModel():
 
 
 def get_details(data):
-    model = getModel()
     prompt = f"""Create some content from the information\\n\\nInput:\\nCreate a set of interview questions to ask a """ + data + """\\n\\nOutput:\\n"""
 
     response = model.generate(prompt)
@@ -46,3 +46,5 @@ def setEnviroment():
         "url": api_endpoint
     }
     return credentials
+
+model = getModel()
