@@ -13,20 +13,10 @@ host="https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud/"
 class Message(BaseModel):
     message: str
 
-class UnicornException(Exception):
-    def __init__(self, name: str):
-        self.name = name
+
 
 app = FastAPI()
 security = HTTPBasic()
-
-
-
-
-
-@app.exception_handler(RequestValidationError)
-async def validation_exception_handler(request, exc):
-    return PlainTextResponse(str(exc), status_code=400)
 
 def custom_openapi():
     
