@@ -11,7 +11,7 @@ host="https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud/"
 
 
 class Message(BaseModel):
-    message: str
+    question: list[str]
 
 svgimage=f"""<svg xmlns="http://www.w3.org/2000/svg" id="OpenSearchicon" viewBox="0 0 100 100"> 
   <defs> 
@@ -66,6 +66,7 @@ app.openapi = custom_openapi
 @app.get("/getQuestions",summary="Get Sample Interview Questions", description="Get Sample Interview Questions", operation_id="GetRecruitmentQuestions",openapi_extra=extendedTags)
 def root(question:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> Message:
     value = get_details(question)
-    return {"message": value}
+    print(value)
+    return {"question": value}
 
 
