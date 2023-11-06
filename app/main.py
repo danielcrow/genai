@@ -4,11 +4,15 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, PlainTextResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.openapi.utils import get_openapi
+from fastapi import File, UploadFile
+
 from pydantic import BaseModel
 from app.genai import get_details
 
-host="https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud/"
+host="genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud"
+#host="localhost:8000"
 
+protocol="https"
 
 class Message(BaseModel):
     question: list[str]
@@ -48,12 +52,7 @@ def custom_openapi():
         routes=app.routes,
     )
     openapi_schema["servers"] = [ {
-      "url": "https://{url}",
-      "variables": {
-        "url": {
-          "default": "genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud",
-        }
-      }
+      "url": protocol+ "//" + host +"/",
     }]
  
     app.openapi_schema = openapi_schema
@@ -70,3 +69,6 @@ def root(question:str, credentials: HTTPBasicCredentials = Depends(security)  ) 
     return {"question": value}
 
 
+@app.post("/uploadfile/")
+def create_upload_file(file: UploadFile)-> str:
+    return "filename" + file.filename

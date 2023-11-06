@@ -1,0 +1,3 @@
+[global]
+timeout = 60
+index-url = https://crowdani%40uk.ibm.com:cmVmdGtuOjAxOjE3MDM2ODE0NTM6ZE15YXNRNU55UXFESTc2d1JCbWlaTk8xZ3pY@na.artifactory.swg-devops.com/artifactory/api/pypi/wcp-ai-foundation-team-pypi-virtual/simple
