@@ -51,10 +51,16 @@ def custom_openapi():
         openapi_version="3.0.0",
         routes=app.routes,
     )
-    openapi_schema["servers"] = [ {
+
+    openapi_schema["servers"] = [    {
       "url": protocol+ "//" + host +"/",
+      "variables": {
+        "url": {
+          "default": "host",
+        }
+      }
     }]
- 
+    
     app.openapi_schema = openapi_schema
 
     return app.openapi_schema
