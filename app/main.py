@@ -56,7 +56,7 @@ def custom_openapi():
       "url": protocol+ "//" + host +"/",
       "variables": {
         "url": {
-          "default": "host",
+          "default": host,
         }
       }
     }]
