@@ -47,11 +47,11 @@ async def root(question:str, credentials: HTTPBasicCredentials = Depends(securit
 
 
 @app.post("/processContent")
-async def processContent(content:Content) ->str:
+def processContent(content:Content) ->str:
     return "content"
 
 @app.post("/uploadfile/")
-async def create_upload_file(file: UploadFile)-> str:
+def createuploadfile(file: UploadFile)-> str:
     return "filename" + file.filename
 
 
