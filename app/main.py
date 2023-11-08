@@ -13,6 +13,8 @@ from app.genai import get_details
 class Content(BaseModel):
     content: bytes
 
+class results(BaseModel):
+    result: str
 
 class Message(BaseModel):
     question: list[str]
@@ -48,7 +50,7 @@ async def root(question:str, credentials: HTTPBasicCredentials = Depends(securit
 
 @app.post("/processContent")
 def processContent(content:Content) ->str:
-    return "content"
+    return {"results": "content"}
 
 @app.post("/uploadfile/")
 def createuploadfile(file: UploadFile)-> str:
