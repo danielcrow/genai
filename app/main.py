@@ -10,6 +10,9 @@ from fastapi import File, UploadFile
 from pydantic import BaseModel
 from app.genai import get_details
 
+class Content(BaseModel):
+    content: str
+
 
 class Message(BaseModel):
     question: list[str]
@@ -42,6 +45,10 @@ async def root(question:str, credentials: HTTPBasicCredentials = Depends(securit
     print(value)
     return {"question": value}
 
+
+@app.post("/processContent")
+async def processContent(content:Content) ->str:
+    return "Got the Content"
 
 @app.post("/uploadfile/")
 async def create_upload_file(file: UploadFile)-> str:
@@ -82,8 +89,12 @@ def custom_openapi():
         routes=app.routes,
     )
 
+    #openapi_schema["servers"] = [{
+    #    "url":"https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud"
+    #}]
+
     openapi_schema["servers"] = [{
-        "url":"https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud"
+        "url":"http://localhost:8000"
     }]
     
 
