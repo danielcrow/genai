@@ -6,13 +6,10 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.openapi.utils import get_openapi
 from fastapi import File, UploadFile
 
+
 from pydantic import BaseModel
 from app.genai import get_details
 
-host="genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud"
-#host="localhost:8000"
-
-protocol="https"
 
 class Message(BaseModel):
     question: list[str]
@@ -39,6 +36,39 @@ extendedTags = {"x-ibm-application-icon":svgimage}
 app = FastAPI()
 security = HTTPBasic()
 
+@app.get("/getQuestions",summary="Get Sample Interview Questions", description="Get Sample Interview Questions", operation_id="GetRecruitmentQuestions",openapi_extra=extendedTags)
+async def root(question:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> Message:
+    value = get_details(question)
+    print(value)
+    return {"question": value}
+
+
+@app.post("/uploadfile/")
+async def create_upload_file(file: UploadFile)-> str:
+    return "filename" + file.filename
+
+
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title="FastAPI",
+        version="1.0.0",
+        openapi_version="3.0.0",
+        routes=app.routes,
+    )
+    openapi_schema["servers"] = [    {
+      "url": "https://{url}",
+      "variables": {
+        "url": {
+          "default": "fastapi.15tk3i02fluj.private.eu-gb.codeengine.appdomain.cloud",
+        }
+      }
+    }]
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
 def custom_openapi():
     
     if app.openapi_schema:
@@ -52,29 +82,24 @@ def custom_openapi():
         routes=app.routes,
     )
 
-    openapi_schema["servers"] = [    {
-      "url": protocol+ "//" + host +"/",
-      "variables": {
-        "url": {
-          "default": host,
-        }
-      }
+    openapi_schema["servers"] = [{
+        "url":"https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud"
     }]
     
-    app.openapi_schema = openapi_schema
 
+    #openapi_schema["servers"] = [    {
+    #  "url": "https://{url}",
+    #  "variables": {
+    #    "url": {
+    #      "default": "genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud",
+    #    }
+    #  }
+    #}]
+    app.openapi_schema = openapi_schema
+  
     return app.openapi_schema
 
 
 app.openapi = custom_openapi
 
-@app.get("/getQuestions",summary="Get Sample Interview Questions", description="Get Sample Interview Questions", operation_id="GetRecruitmentQuestions",openapi_extra=extendedTags)
-def root(question:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> Message:
-    value = get_details(question)
-    print(value)
-    return {"question": value}
 
-
-@app.post("/uploadfile/")
-def create_upload_file(file: UploadFile)-> str:
-    return "filename" + file.filename
