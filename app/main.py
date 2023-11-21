@@ -105,8 +105,8 @@ def custom_openapi():
     )
 
     openapi_schema["servers"] = [{
-        #"url":"https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud"
-        "url":"http://localhost:8000"
+        "url":"https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud"
+        #"url":"http://localhost:8000"
     }]
 
     #openapi_schema["servers"] = [{
