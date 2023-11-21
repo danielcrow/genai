@@ -6,11 +6,13 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.openapi.utils import get_openapi
 from fastapi import File, UploadFile
 
-
+from app.models import Incidents,Item
 
 from pydantic import BaseModel, Field
 from app.genai import get_details
 from app.genai import ask_question
+from app.aiops import  getIncidents
+from app.aiops import getIncident
 
 class Content(BaseModel):
     content: bytes
@@ -55,6 +57,15 @@ async def root(question:str, credentials: HTTPBasicCredentials = Depends(securit
     print(results)
     return {"result": results}
 
+@app.get("/getIncidents",summary="Get AiOps Incidents", description="Get AiOps Incidents", operation_id="getaiopsincidents",openapi_extra=extendedTags)
+async def root(credentials: HTTPBasicCredentials = Depends(security)  ) -> Incidents:
+    incidents:Incidents = getIncidents()
+    return incidents
+
+@app.get("/getIncident",summary="Get AiOps Incidents", description="Get AiOps Incidents", operation_id="getaiopsincidents",openapi_extra=extendedTags)
+async def root(id:str,credentials: HTTPBasicCredentials = Depends(security)  ) -> Item:
+    item:Item = getIncident(id)
+    return item
 
 
 
@@ -94,8 +105,8 @@ def custom_openapi():
     )
 
     openapi_schema["servers"] = [{
-        "url":"https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud"
-        #"url":"http://localhost:8000"
+        #"url":"https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud"
+        "url":"http://localhost:8000"
     }]
 
     #openapi_schema["servers"] = [{

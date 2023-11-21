@@ -1,0 +1,192 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "DC-WatsonX.ai Recruitment",
+        "description": "Recruitment",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/getQuestions": {
+            "get": {
+                "summary": "Get Sample Interview Questions",
+                "description": "Get Sample Interview Questions",
+                "operationId": "GetRecruitmentQuestions",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Question"
+                        },
+                        "name": "question",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Message"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ],
+                "x-ibm-application-icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"OpenSearchicon\" viewBox=\"0 0 100 100\"> \n  <defs> \n    <linearGradient x1=\"0.085\" y1=\"0.085\" x2=\"0.915\" y2=\"0.915\" id=\"OpenSearchg\">\n      <stop offset=\"0\" stop-color=\"#1417cc\" stop-opacity=\"1\"/>\n      <stop offset=\"0.5\" stop-color=\"#1517cc\" stop-opacity=\"0\"/>\n      <stop offset=\"1\" stop-color=\"#1517cc\" stop-opacity=\"1\"/>\n    </linearGradient>\n  </defs>\n  <g transform=\"scale(0.39)\">\n  <rect width=\"256\" height=\"256\" rx=\"55\" ry=\"55\" x=\"0\" y=\"0\" fill=\"#1517cc\"/>\n  <rect width=\"246\" height=\"246\" rx=\"50\" ry=\"50\" x=\"5\" y=\"5\" fill=\"#5252f4\"/>\n  <rect width=\"236\" height=\"236\" rx=\"45\" ry=\"45\" x=\"10\" y=\"10\" fill=\"url(#OpenSearchg)\"/>\n  <path fill=\"none\" stroke=\"#fff\" stroke-width=\"26\" d=\"M 178 103 A 74 74 0 1 1  30,103 A 74 74 0 1 1  178 103 z\" transform=\"matrix(0.918696,0,0,0.918696,4.331024,5.50348)\"/>\n  <rect fill=\"#fff\" stroke=\"none\" width=\"102.33237\" height=\"39.089138\" x=\"211.87753\" y=\"-19.544645\" transform=\"matrix(0.707107,0.707107,-0.707107,0.707107,0,0)\"/>\n  </g>\n</svg>"
+            }
+        },
+        "/askQuestion": {
+            "get": {
+                "summary": "Ask WatsonX Question",
+                "description": "Ask WatsonX Question",
+                "operationId": "getstandardquestion",
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Question"
+                        },
+                        "name": "question",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/results"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ],
+                "x-ibm-application-icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"OpenSearchicon\" viewBox=\"0 0 100 100\"> \n  <defs> \n    <linearGradient x1=\"0.085\" y1=\"0.085\" x2=\"0.915\" y2=\"0.915\" id=\"OpenSearchg\">\n      <stop offset=\"0\" stop-color=\"#1417cc\" stop-opacity=\"1\"/>\n      <stop offset=\"0.5\" stop-color=\"#1517cc\" stop-opacity=\"0\"/>\n      <stop offset=\"1\" stop-color=\"#1517cc\" stop-opacity=\"1\"/>\n    </linearGradient>\n  </defs>\n  <g transform=\"scale(0.39)\">\n  <rect width=\"256\" height=\"256\" rx=\"55\" ry=\"55\" x=\"0\" y=\"0\" fill=\"#1517cc\"/>\n  <rect width=\"246\" height=\"246\" rx=\"50\" ry=\"50\" x=\"5\" y=\"5\" fill=\"#5252f4\"/>\n  <rect width=\"236\" height=\"236\" rx=\"45\" ry=\"45\" x=\"10\" y=\"10\" fill=\"url(#OpenSearchg)\"/>\n  <path fill=\"none\" stroke=\"#fff\" stroke-width=\"26\" d=\"M 178 103 A 74 74 0 1 1  30,103 A 74 74 0 1 1  178 103 z\" transform=\"matrix(0.918696,0,0,0.918696,4.331024,5.50348)\"/>\n  <rect fill=\"#fff\" stroke=\"none\" width=\"102.33237\" height=\"39.089138\" x=\"211.87753\" y=\"-19.544645\" transform=\"matrix(0.707107,0.707107,-0.707107,0.707107,0,0)\"/>\n  </g>\n</svg>"
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "Message": {
+                "properties": {
+                    "question": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array",
+                        "title": "Question"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "question"
+                ],
+                "title": "Message"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            },
+            "results": {
+                "properties": {
+                    "result": {
+                        "type": "string",
+                        "title": "Result"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "result"
+                ],
+                "title": "results"
+            }
+        },
+        "securitySchemes": {
+            "HTTPBasic": {
+                "type": "http",
+                "scheme": "basic"
+            }
+        }
+    },
+    "servers": [
+        {
+            "url": "https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud"
+        }
+    ]
+}
