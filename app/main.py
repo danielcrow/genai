@@ -6,8 +6,7 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.openapi.utils import get_openapi
 from fastapi import File, UploadFile
 
-import codecs
-import aiofiles
+
 
 from pydantic import BaseModel, Field
 from app.genai import get_details
