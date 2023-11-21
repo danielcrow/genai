@@ -62,7 +62,7 @@ async def root(credentials: HTTPBasicCredentials = Depends(security)  ) -> Incid
     incidents:Incidents = getIncidents()
     return incidents
 
-@app.get("/getIncident",summary="Get AiOps Incidents", description="Get AiOps Incidents", operation_id="getaiopsincidents",openapi_extra=extendedTags)
+@app.get("/getIncident",summary="Get AiOps Incident", description="Get AiOps Incident", operation_id="getaiopsincident",openapi_extra=extendedTags)
 async def root(id:str,credentials: HTTPBasicCredentials = Depends(security)  ) -> Item:
     item:Item = getIncident(id)
     return item
