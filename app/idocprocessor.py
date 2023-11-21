@@ -1,6 +1,6 @@
 import json
 import logging
-
+import base64
 # Standard
 from pathlib import Path
 
@@ -17,7 +17,8 @@ from watson_doc_understanding.data_model.ocr import OCRPrediction
 
 from watson_doc_understanding.workflows.document_processing.document_processor import DocProcessor
 
-logger = logging.getLogger("DU.EXAMPLE")
+
+logger = logging.getLogger("DU.IOCR")
 logger.setLevel(logging.DEBUG)
 
 
@@ -54,39 +55,23 @@ def load_models_for_example():
     load_du_models_from_config(models_config)
 
 
-def main():
-    """
-    This example processes an image through the DU IOCRAndTablesWorkflow model,
-    and processes text and tables into a "fused" structure consumable by downstream processing.
-    """
-    # First load in needed models into DU, assuming the models have already been installed.
-    load_models_for_example()
 
-    # Set up a path object to an image, and put it into a DocumentBytes object.
-    this_folder = Path(__file__).parent
-    image_path = this_folder.joinpath("1.jpg")
-    assert image_path.exists()
-
-    # The document bytes object packages a document into a DU data model format
-    # that may be passed to the model.
-    doc_bytes = DocumentBytes(
-        File(data=image_path.read_bytes(), filename=image_path.name)
-    )
-
-    # Ask the IOCRAndTablesWorkflow model to perform its inference.
-    logger.info("IOCRAndTablePrediction inference starting")
-    docProcessor: DocProcessor = fetch_du_model(DocProcessor)
+def processBase64(content):
+    #img_data = content.encode()
+    #print(content)
    
+    doc_bytes:bytes = content.encode()
+    out_file_path = "sds.pdf"
+    #print(content)
+    file= File(data=doc_bytes, filename=out_file_path)
+    #print(file)
+    doc_bytes = DocumentBytes(file)
+    
     output= docProcessor.run(doc_bytes, languages_list=["eng"], auto_rotation_correction=False, pre_processing=None)
     #output_dict:dict = output.to_dict()
-    output_json = json.loads(output.processing_output)
+    #output_json = json.loads(output.processing_output)
+    print("Hello World")
+    return ""    
 
-
-    with open("iocr.json", "w", encoding="utf-8") as fp:
-        json.dump(output_json, fp, ensure_ascii=False, indent=4)
-    
-    #print(output.to_json())
-
-
-if __name__ == "__main__":
-    main()
+load_models_for_example()
+docProcessor: DocProcessor = fetch_du_model(DocProcessor)

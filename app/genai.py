@@ -43,6 +43,21 @@ def get_details(data):
 
     return question
 
+def ask_question(data):
+    prompt = f"""Ask a Question .Input: """ + data + """ Output:"""
+    print(prompt)
+    response = model.generate(prompt)
+    #print(response)
+    summary = response['results'][0]['generated_text']
+
+    question = summary
+
+    #print(question)
+    
+    
+
+    return question
+
 def setEnviroment():
      # TODO implement
     load_dotenv()

@@ -1,0 +1,2 @@
+import app.idocprocessor as idocprocessor
+idocprocessor.processBase64(23232232)

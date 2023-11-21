@@ -5,7 +5,7 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.openapi.utils import get_openapi
 from fastapi import File, UploadFile
-
+from  app.idocprocessor import processBase64
 import codecs
 import aiofiles
 
@@ -50,7 +50,7 @@ async def root(question:str, credentials: HTTPBasicCredentials = Depends(securit
     print(value)
     return {"question": value}
 
-@app.get("/askQuestion",summary="Ask WatsonX Question", description="Ask WatsonX Question", operation_id="getstandardquestion",openapi_extra=extendedTags)
+@app.get("/askQuestion",summary="Get Sample Interview Questions", description="Get Sample Interview Questions", operation_id="GetRecruitmentQuestions",openapi_extra=extendedTags)
 async def root(question:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> results:
     results = ask_question(question)
     print(results)
@@ -58,6 +58,27 @@ async def root(question:str, credentials: HTTPBasicCredentials = Depends(securit
 
 
 
+@app.post("/processContent")
+def processContent(content:Content) ->str:  
+    return {"results": "content"}
+
+@app.post("/uploadfile/")
+async def createuploadfile(file: UploadFile)-> str:
+    print("*************************")
+    out_file_path = "sds.pdf"
+    async with aiofiles.open(out_file_path, 'wb') as out_file:
+        content = await file.read()  # async read
+        await out_file.write(content)  # async write
+    #data:str = await file.read()
+    #output = data.decode('ISO-8859-1')
+    
+    with codecs.open(out_file_path, 'r', encoding='ISO-8859-1') as fp:
+        data = fp.read()
+   
+    
+    print(data)
+    processBase64(data)
+    return ""
 
 
 

@@ -50,3 +50,6 @@ yarl==1.9.2
 zipp==3.16.2
 uvicorn>=0.15.0,<0.16.0
 python-multipart
+torch~=2.0.1
+watson_doc_understanding==0.7.0
+ocr-table-fusion
