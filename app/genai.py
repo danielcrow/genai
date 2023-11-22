@@ -41,7 +41,7 @@ def getModel(model:str):
         GenParams.TOP_P: 0
     }
     model = Model(
-        model_id="ibm/granite-13b-chat-v1",
+        model_id=model,
         #model_id=ModelTypes.FLAN_UL2,
         params=params,
         credentials=credentials,
@@ -50,7 +50,7 @@ def getModel(model:str):
     return model
 
 def get_details(data):
-    model = getModel(ModelTypes.FLAN_UL2)
+    model = getModel("ibm/granite-13b-chat-v1")
     prompt = f"""Create job interviews based on role.Input:Create 10 interview questions to ask the role of """ + data + """ Output:"""
     print(prompt)
     response = model.generate(prompt)
@@ -66,19 +66,25 @@ def get_details(data):
     return question
 
 def ask_question(data):
-    
+    model = getModel(ModelTypes.LLAMA_2_70B_CHAT)
     prompt = f"""Ask a Question .Input: """ + data + """ Output:"""
     print(prompt)
     response = model.generate(prompt)
     #print(response)
     summary = response['results'][0]['generated_text']
-
     question = summary
-
     #print(question)
-    
-    
+    return question
 
+def generateEmail(customer:str, date:str):
+    model = getModel(ModelTypes.LLAMA_2_70B_CHAT)
+    prompt = f""""input": "Generate an email to pitch a sales offer to an existing account.  \nOffer type: Discount  \nCompany: Global Media - 400 Widgets  \nOffer Date: Nov 21st 2023 \nDiscount" """
+    print(prompt)
+    response = model.generate(prompt)
+    #print(response)
+    summary = response['results'][0]['generated_text']
+    question = summary
+    #print(question)
     return question
 
 def setEnviroment():
@@ -93,4 +99,3 @@ def setEnviroment():
     }
     return credentials
 
-model = getModel("ibm/granite-13b-chat-v1")
