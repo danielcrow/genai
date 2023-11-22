@@ -5,6 +5,8 @@ from fastapi.responses import JSONResponse, PlainTextResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.openapi.utils import get_openapi
 from fastapi import File, UploadFile
+from typing import  Annotated,Union
+
 
 from app.models import Incidents,Item
 
@@ -52,7 +54,7 @@ async def root(question:str, credentials: HTTPBasicCredentials = Depends(securit
     return {"question": value}
 
 @app.get("/askQuestion",summary="Ask WatsonX Question", description="Ask WatsonX Question", operation_id="getstandardquestion",openapi_extra=extendedTags)
-async def root(question:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> results:
+async def root(question:str,    credentials: HTTPBasicCredentials = Depends(security)  ) -> results:
     results = ask_question(question)
     print(results)
     return {"result": results}
@@ -105,8 +107,8 @@ def custom_openapi():
     )
 
     openapi_schema["servers"] = [{
-        "url":"https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud"
-        #"url":"http://localhost:8000"
+        "url":"https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud"},
+        {"url":"http://localhost:8000"
     }]
     app.openapi_schema = openapi_schema
   
