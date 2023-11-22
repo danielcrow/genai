@@ -66,7 +66,7 @@ def get_details(data):
     return question
 
 def ask_question(data):
-    model = getModel(ModelTypes.LLAMA_2_70B_CHAT)
+    model = getModel("llama-2-70b-chat")
     prompt = f"""Ask a Question .Input: """ + data + """ Output:"""
     print(prompt)
     response = model.generate(prompt)
@@ -77,7 +77,7 @@ def ask_question(data):
     return question
 
 def generateEmail(customer:str, date:str):
-    model = getModel(ModelTypes.LLAMA_2_70B_CHAT)
+    model = getModel("llama-2-70b-chat")
     prompt = f""""input": "Generate an email to pitch a sales offer to an existing account.  \nOffer type: Discount  \nCompany: Global Media - 400 Widgets  \nOffer Date: Nov 21st 2023 \nDiscount" """
     print(prompt)
     response = model.generate(prompt)

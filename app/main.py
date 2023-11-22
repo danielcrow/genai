@@ -71,7 +71,7 @@ async def root(id:str,credentials: HTTPBasicCredentials = Depends(security)  ) -
     return item
 
 @app.get("/generateEmail",summary="Ask Watson X Email", description="Ask WatsonX Email", operation_id="getstandardwxoemail",openapi_extra=extendedTags)
-async def root(customer:str, emaildate:str,    credentials: HTTPBasicCredentials = Depends(security)  ) -> results:
+async def root(customer:str, emaildate:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> results:
     results = generateEmail(customer,emaildate)
     print(results)
     return {"result": results}
