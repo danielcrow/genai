@@ -69,7 +69,7 @@ def get_details(data):
     return question
 
 def ask_question(data):
-    model = getModel("llama-2-70b-chat")
+    model = getModel("meta-llama/llama-2-70b-chat")
     prompt = f"""Ask a Question .Input: """ + data + """ Output:"""
     print(prompt)
     response = model.generate(prompt)
@@ -80,7 +80,7 @@ def ask_question(data):
     return question
 
 def generateEmail(customer:str, date:str):
-    model = getModel(ModelTypes.LLAMA_2_70B_CHAT)
+    model = getModel("meta-llama/llama-2-70b-chat")
     
     defaultPrompt = f"""[INST]<<SYS>>You are a helpful assistant that answers users questions using the data provided. The data has been provided between the "#### START OF DATA ####" and "#### END OF DATA ####" tags. The answer should never mention that you are using data to answer the question. If no relevant data has been provided you should answer "I have not been trained on that information.".<</SYS>>
         #### START OF DATA ####
