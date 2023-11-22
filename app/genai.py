@@ -77,7 +77,7 @@ def ask_question(data):
     return question
 
 def generateEmail(customer:str, date:str):
-    model = getModel("llama-2-13b-chat")
+    model = getModel(ModelTypes.FLAN_T5_XXL)
     prompt = f""""input": "Generate an email to pitch a sales offer to an existing account.  \nOffer type: Discount  \nCompany: Global Media - 400 Widgets  \nOffer Date: Nov 21st 2023 \nDiscount" """
     print(prompt)
     response = model.generate(prompt)
