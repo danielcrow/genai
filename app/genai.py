@@ -51,6 +51,9 @@ def getModel(model:str):
 
 def get_details(data):
     model = getModel("ibm/granite-13b-chat-v1")
+    
+    
+    
     prompt = f"""Create job interviews based on role.Input:Create 10 interview questions to ask the role of """ + data + """ Output:"""
     print(prompt)
     response = model.generate(prompt)
@@ -77,10 +80,22 @@ def ask_question(data):
     return question
 
 def generateEmail(customer:str, date:str):
-    model = getModel(ModelTypes.FLAN_T5_XXL)
-    prompt = f""""input": "Generate an email to pitch a sales offer to an existing account.  \nOffer type: Discount  \nCompany: Global Media - 400 Widgets  \nOffer Date: Nov 21st 2023 \nDiscount" """
-    print(prompt)
-    response = model.generate(prompt)
+    model = getModel(ModelTypes.LLAMA_2_70B_CHAT)
+    
+    defaultPrompt = f"""[INST]<<SYS>>You are a helpful assistant that answers users questions using the data provided. The data has been provided between the "#### START OF DATA ####" and "#### END OF DATA ####" tags. The answer should never mention that you are using data to answer the question. If no relevant data has been provided you should answer "I have not been trained on that information.".<</SYS>>
+        #### START OF DATA ####
+            Customer Name: """+ customer + """
+            Offer Date: """ + date + """
+            My Name: Daniel Crow
+        #### END OF DATA ####
+        #### START OF QUESTION ####
+            Please generate Email offering a deal to a current customer
+        #### END OF QUESTION ####[/INST]
+        Based on the data, the answer to the question is:"""
+    
+    #prompt = f"""input": "generate a email\n\nGenerate an email to pitch a sales offer to an existing account.  \n\nOffer Type: Discount  \nCompany: Dan GROUP - 400 Widgets  \nOffer Date: Nov 21st 2023 \nDiscount: " """
+    print(defaultPrompt)
+    response = model.generate(defaultPrompt)
     #print(response)
     summary = response['results'][0]['generated_text']
     question = summary
