@@ -70,9 +70,17 @@ def get_details(data):
 
 def ask_question(data):
     model = getModel("meta-llama/llama-2-70b-chat")
+    defaultPrompt = f"""[INST]<<SYS>>You are a helpful assistant that answers users questions using the data provided. The data has been provided between the "#### START OF DATA ####" and "#### END OF DATA ####" tags. The answer should never mention that you are using data to answer the question. If no relevant data has been provided you should answer "I have not been trained on that information.".<</SYS>>
+        #### START OF DATA ####
+        #### END OF DATA ####
+        #### START OF QUESTION ####
+            """ + data + """
+        #### END OF QUESTION ####[/INST]
+        Based on the data, the answer to the question is:"""
+    
     prompt = f"""Ask a Question .Input: """ + data + """ Output:"""
-    print(prompt)
-    response = model.generate(prompt)
+    print(defaultPrompt)
+    response = model.generate(defaultPrompt)
     #print(response)
     summary = response['results'][0]['generated_text']
     question = summary
@@ -90,6 +98,27 @@ def generateEmail(customer:str, date:str):
         #### END OF DATA ####
         #### START OF QUESTION ####
             Please generate Email offering a deal to a current customer
+        #### END OF QUESTION ####[/INST]
+        Based on the data, the answer to the question is:"""
+    
+    #prompt = f"""input": "generate a email\n\nGenerate an email to pitch a sales offer to an existing account.  \n\nOffer Type: Discount  \nCompany: Dan GROUP - 400 Widgets  \nOffer Date: Nov 21st 2023 \nDiscount: " """
+    print(defaultPrompt)
+    response = model.generate(defaultPrompt)
+    #print(response)
+    summary = response['results'][0]['generated_text']
+    question = summary
+    #print(question)
+    return question
+
+def generateContent(data:str, question:str):
+    model = getModel("meta-llama/llama-2-70b-chat")
+    
+    defaultPrompt = f"""[INST]<<SYS>>You are a helpful assistant that answers users questions using the data provided. The data has been provided between the "#### START OF DATA ####" and "#### END OF DATA ####" tags. The answer should never mention that you are using data to answer the question. If no relevant data has been provided you should answer "I have not been trained on that information.".<</SYS>>
+        #### START OF DATA ####
+            """+ data + """
+        #### END OF DATA ####
+        #### START OF QUESTION ####
+             """+ question + """
         #### END OF QUESTION ####[/INST]
         Based on the data, the answer to the question is:"""
     

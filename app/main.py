@@ -16,6 +16,7 @@ from app.genai import ask_question
 from app.aiops import  getIncidents
 from app.aiops import getIncident
 from app.genai import generateEmail
+from app.genai import generateContent
 
 class Content(BaseModel):
     content: bytes
@@ -73,6 +74,12 @@ async def root(id:str,credentials: HTTPBasicCredentials = Depends(security)  ) -
 @app.get("/generateEmail",summary="Ask Watson X Email", description="Ask WatsonX Email", operation_id="getstandardwxoemail",openapi_extra=extendedTags)
 async def root(customer:str, emaildate:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> results:
     results = generateEmail(customer,emaildate)
+    print(results)
+    return {"result": results}
+
+@app.get("/generateContent",summary="Ask Watson X Content", description="Ask WatsonX Content", operation_id="getstandardwxoecontent",openapi_extra=extendedTags)
+async def root(data:str, question:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> results:
+    results = generateContent(data,question)
     print(results)
     return {"result": results}
 
