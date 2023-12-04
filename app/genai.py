@@ -5,6 +5,8 @@ from ibm_watson_machine_learning.metanames import GenTextParamsMetaNames as GenP
 from ibm_watson_machine_learning.foundation_models.utils.enums import ModelTypes, DecodingMethods
 from dotenv import load_dotenv
 
+import requests
+
 def getModel():
 
     credentials = setEnviroment()
@@ -143,3 +145,22 @@ def setEnviroment():
     }
     return credentials
 
+def callRAG(apikey:str, question:str, projectid:str):
+    
+    
+    reqUrl = "http://141.125.105.231:3000/api/generate?input=" + question + "&project_id=" + projectid
+    headersList = {
+            "Accept": "*/*",
+            "x-api-key": apikey
+                
+        }
+   
+    payload = ""
+
+    response = requests.request("GET", reqUrl, data=payload,  headers=headersList)
+    jsonvalue = response.json()
+    jdump = json.dumps(jsonvalue)
+    jsonvalue = json.loads(jdump)
+    print(jsonvalue["generated_text"])
+    return jsonvalue["generated_text"]
+  

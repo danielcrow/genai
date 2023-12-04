@@ -1,8 +1,9 @@
 import string
-from fastapi import Depends, FastAPI, HTTPException, APIRouter, Request
+from fastapi import Depends, FastAPI, HTTPException, APIRouter, Request,Security
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, PlainTextResponse
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
+from fastapi.security import APIKeyHeader
 from fastapi.openapi.utils import get_openapi
 from fastapi import File, UploadFile
 from typing import  Annotated,Union
@@ -17,6 +18,7 @@ from app.aiops import  getIncidents
 from app.aiops import getIncident
 from app.genai import generateEmail
 from app.genai import generateContent
+from app.genai import callRAG
 
 class Content(BaseModel):
     content: bytes
@@ -48,6 +50,8 @@ extendedTags = {"x-ibm-application-icon":svgimage}
 
 app = FastAPI()
 security = HTTPBasic()
+
+api_key_header = APIKeyHeader(name="X-API-Key")
 
 @app.get("/getQuestions",summary="Get Sample Interview Questions", description="Get Sample Interview Questions", operation_id="GetRecruitmentQuestions",openapi_extra=extendedTags)
 async def root(question:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> Message:
@@ -83,6 +87,13 @@ async def root(data:str, question:str, credentials: HTTPBasicCredentials = Depen
     print(results)
     return {"result": results}
 
+@app.get("/askCuratedQuestion",summary="Ask Watson X curated", description="Ask WatsonX curated", operation_id="getstandardwxoecurated",openapi_extra=extendedTags)
+async def root(question:str, projectId:str, api_key_header: str = Security(api_key_header) ) -> results:
+  
+    results = callRAG(api_key_header, question,projectId)
+   
+    print(results)
+    return {"result": results}
 
 
 def custom_openapi():
