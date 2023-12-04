@@ -7,10 +7,13 @@ from dotenv import load_dotenv
 
 import requests
 
+
+
 def getModel():
 
     credentials = setEnviroment()
     project_id=os.getenv("PROJECT_ID", None)
+   
     print(project_id)
     params = {
         GenParams.DECODING_METHOD: "sample",
@@ -135,7 +138,7 @@ def generateContent(data:str, question:str):
 
 def setEnviroment():
      # TODO implement
-    load_dotenv()
+    
     api_key=os.getenv("GENAI_KEY", None)
     api_endpoint=os.getenv("GENAI_API_ENDPOINT", None)
     project_id=os.getenv("PROJECT_ID", None)
@@ -146,9 +149,10 @@ def setEnviroment():
     return credentials
 
 def callRAG(apikey:str, question:str, projectid:str):
-    
-    
-    reqUrl = "http://141.125.105.231:3000/api/generate?input=" + question + "&project_id=" + projectid
+    load_dotenv()
+    rag_server = os.getenv("RAG_SERVER",None)
+    print(rag_server)
+    reqUrl = rag_server + question + "&project_id=" + projectid
     headersList = {
             "Accept": "*/*",
             "x-api-key": apikey
