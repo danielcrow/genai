@@ -152,11 +152,11 @@ def callRAG(apikey:str, question:str, projectid:str):
     load_dotenv()
     rag_server = os.getenv("RAG_SERVER",None)
     print(rag_server)
-    apikey =  "3A6SPFX-Q904B1T-HNN6XPG-PGXKGRA"
+    apikey1 =  "3A6SPFX-Q904B1T-HNN6XPG-PGXKGRA"
     reqUrl = rag_server + question + "&project_id=" + projectid
     headersList = {
             "Accept": "*/*",
-            "x-api-key": apikey
+            "x-api-key": apikey1
                 
         }
    
