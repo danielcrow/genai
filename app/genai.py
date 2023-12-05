@@ -148,18 +148,21 @@ def setEnviroment():
     }
     return credentials
 
-def callRAG(apikey:str, question:str, projectid:str):
+def callRAG(question:str, projectid:str):
     load_dotenv()
     rag_server = os.getenv("RAG_SERVER",None)
     print(rag_server)
-    apikey1 =  "3A6SPFX-Q904B1T-HNN6XPG-PGXKGRA"
+    apikey  = os.getenv("API_RAG_KEY",None)
+    
     reqUrl = rag_server + question + "&project_id=" + projectid
+    print("Daniel")
     headersList = {
             "Accept": "*/*",
-            "x-api-key": apikey1
+            "x-api-key": apikey
                 
         }
    
+    print(headersList)
     payload = ""
 
     response = requests.request("GET", reqUrl, data=payload,  headers=headersList)

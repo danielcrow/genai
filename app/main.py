@@ -88,9 +88,9 @@ async def root(data:str, question:str, credentials: HTTPBasicCredentials = Depen
     return {"result": results}
 
 @app.get("/askCuratedQuestion",summary="Ask Watson X curated", description="Ask WatsonX curated", operation_id="getstandardwxoecurated",openapi_extra=extendedTags)
-async def root(question:str, projectId:str, api_key_header: str = Security(api_key_header) ) -> results:
-  
-    results = callRAG(api_key_header, question,projectId)
+async def root(question:str, projectId:str) -> results:
+    print("Daniel")
+    results = callRAG( question,projectId)
    
     print(results)
     return {"result": results}
