@@ -602,11 +602,6 @@
             "HTTPBasic": {
                 "type": "http",
                 "scheme": "basic"
-            },
-            "APIKeyHeader": {
-                "type": "apiKey",
-                "in": "header",
-                "name": "X-API-Key"
             }
         }
     },

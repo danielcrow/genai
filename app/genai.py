@@ -3,11 +3,11 @@ import os
 from ibm_watson_machine_learning.foundation_models import Model
 from ibm_watson_machine_learning.metanames import GenTextParamsMetaNames as GenParams
 from ibm_watson_machine_learning.foundation_models.utils.enums import ModelTypes, DecodingMethods
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 import requests
 
-
+load_dotenv(find_dotenv())
 
 def getModel():
 
@@ -33,8 +33,9 @@ def getModel():
     return model
 
 def getModel(model:str):
-
+  
     credentials = setEnviroment()
+ 
     project_id=os.getenv("PROJECT_ID", None)
     print(project_id)
     params = {
@@ -116,6 +117,7 @@ def generateEmail(customer:str, date:str):
     return question
 
 def generateContent(data:str, question:str):
+    
     model = getModel("meta-llama/llama-2-70b-chat")
     
     defaultPrompt = f"""[INST]<<SYS>>You are a helpful assistant that answers users questions using the data provided. The data has been provided between the "#### START OF DATA ####" and "#### END OF DATA ####" tags. The answer should never mention that you are using data to answer the question. If no relevant data has been provided you should answer "I have not been trained on that information.".<</SYS>>
@@ -138,8 +140,9 @@ def generateContent(data:str, question:str):
 
 def setEnviroment():
      # TODO implement
-    
+
     api_key=os.getenv("GENAI_KEY", None)
+
     api_endpoint=os.getenv("GENAI_API_ENDPOINT", None)
     project_id=os.getenv("PROJECT_ID", None)
     credentials={

@@ -6,10 +6,10 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.security import APIKeyHeader
 from fastapi.openapi.utils import get_openapi
 from fastapi import File, UploadFile
-from typing import  Annotated,Union
+from typing import  Annotated, List,Union
 
 
-from app.models import Incidents,Item
+from app.models import Incidents,Item,Crime,Crimes,Locations,Location
 
 from pydantic import BaseModel, Field
 from app.genai import get_details
@@ -19,6 +19,10 @@ from app.aiops import getIncident
 from app.genai import generateEmail
 from app.genai import generateContent
 from app.genai import callRAG
+from app.postgrescrimes import get_crime_location
+from app.postgrescrimes import get_crimes
+
+
 
 class Content(BaseModel):
     content: bytes
@@ -28,6 +32,10 @@ class results(BaseModel):
 
 class Message(BaseModel):
     question: list[str]
+    
+class Question(BaseModel):
+    data: str
+    question: str | None = None
 
 svgimage=f"""<svg xmlns="http://www.w3.org/2000/svg" id="OpenSearchicon" viewBox="0 0 100 100"> 
   <defs> 
@@ -52,6 +60,20 @@ app = FastAPI()
 security = HTTPBasic()
 
 api_key_header = APIKeyHeader(name="X-API-Key")
+
+@app.get("/getCrimes",summary="Get Crimes by Area", description="Get Crimes by area", operation_id="GetCrimesByArea",openapi_extra=extendedTags)
+async def root(area:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> List[Crime]:
+    value = get_crimes(area)
+    print(value)
+ 
+    return value
+
+@app.get("/getCrimeAreas",summary="Get Crime Area", description="Get Crime area", operation_id="GetCrimeArea",openapi_extra=extendedTags)
+async def root(credentials: HTTPBasicCredentials = Depends(security)  ) -> List[Location]:
+    value = get_crime_location()
+
+    print(value)
+    return value
 
 @app.get("/getQuestions",summary="Get Sample Interview Questions", description="Get Sample Interview Questions", operation_id="GetRecruitmentQuestions",openapi_extra=extendedTags)
 async def root(question:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> Message:
@@ -84,6 +106,12 @@ async def root(customer:str, emaildate:str, credentials: HTTPBasicCredentials = 
 @app.get("/generateContent",summary="Ask Watson X Content", description="Ask WatsonX Content", operation_id="getstandardwxoecontent",openapi_extra=extendedTags)
 async def root(data:str, question:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> results:
     results = generateContent(data,question)
+    print(results)
+    return {"result": results}
+
+@app.post("/generateContent",summary="Ask Watson Xv2", description="Ask WatsonX Contentv2", operation_id="getstandardwxoecontentv2",openapi_extra=extendedTags)
+async def root(question: Question, credentials: HTTPBasicCredentials = Depends(security)  ) -> results:
+    results = generateContent(question.data, question.question)
     print(results)
     return {"result": results}
 

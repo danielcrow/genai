@@ -4,6 +4,9 @@ from typing import Any, Dict, List, Optional
 
 from pydantic import BaseModel
 
+
+
+
 class NotificationItem(BaseModel):
     name: str
     type: str
@@ -45,3 +48,21 @@ class Item(BaseModel):
 
 class Incidents(BaseModel):
     items: List[Item]
+
+
+class Crime(BaseModel):
+    Month: str
+    PoliceForce:str
+    Location:str
+    CrimeDetails: str
+    LastAction:str
+       
+class Crimes(BaseModel):
+    items: List[Crime]
+    
+    
+class Location(BaseModel):
+    location: str
+    
+class Locations(BaseModel):
+    locations: List[Location]
