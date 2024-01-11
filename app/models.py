@@ -66,3 +66,12 @@ class Location(BaseModel):
     
 class Locations(BaseModel):
     locations: List[Location]
+    
+    
+class Opp(BaseModel):
+    OppId:str
+    CustomerName:str
+    OpportunityName:str
+    
+class Opps(BaseModel):
+    opps: List[Opp]

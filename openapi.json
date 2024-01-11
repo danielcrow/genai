@@ -6,20 +6,96 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/getCrimes": {
+            "get": {
+                "summary": "Get Crimes by Area",
+                "description": "Get Crimes by area",
+                "operationId": "GetCrimesByArea",
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "area",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "title": "Area"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Crimes"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "x-ibm-application-icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"OpenSearchicon\" viewBox=\"0 0 100 100\"> \n  <defs> \n    <linearGradient x1=\"0.085\" y1=\"0.085\" x2=\"0.915\" y2=\"0.915\" id=\"OpenSearchg\">\n      <stop offset=\"0\" stop-color=\"#1417cc\" stop-opacity=\"1\"/>\n      <stop offset=\"0.5\" stop-color=\"#1517cc\" stop-opacity=\"0\"/>\n      <stop offset=\"1\" stop-color=\"#1517cc\" stop-opacity=\"1\"/>\n    </linearGradient>\n  </defs>\n  <g transform=\"scale(0.39)\">\n  <rect width=\"256\" height=\"256\" rx=\"55\" ry=\"55\" x=\"0\" y=\"0\" fill=\"#1517cc\"/>\n  <rect width=\"246\" height=\"246\" rx=\"50\" ry=\"50\" x=\"5\" y=\"5\" fill=\"#5252f4\"/>\n  <rect width=\"236\" height=\"236\" rx=\"45\" ry=\"45\" x=\"10\" y=\"10\" fill=\"url(#OpenSearchg)\"/>\n  <path fill=\"none\" stroke=\"#fff\" stroke-width=\"26\" d=\"M 178 103 A 74 74 0 1 1  30,103 A 74 74 0 1 1  178 103 z\" transform=\"matrix(0.918696,0,0,0.918696,4.331024,5.50348)\"/>\n  <rect fill=\"#fff\" stroke=\"none\" width=\"102.33237\" height=\"39.089138\" x=\"211.87753\" y=\"-19.544645\" transform=\"matrix(0.707107,0.707107,-0.707107,0.707107,0,0)\"/>\n  </g>\n</svg>"
+            }
+        },
+        "/getCrimeAreas": {
+            "get": {
+                "summary": "Get Crime Area",
+                "description": "Get Crime area",
+                "operationId": "GetCrimeArea",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Locations"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ],
+                "x-ibm-application-icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"OpenSearchicon\" viewBox=\"0 0 100 100\"> \n  <defs> \n    <linearGradient x1=\"0.085\" y1=\"0.085\" x2=\"0.915\" y2=\"0.915\" id=\"OpenSearchg\">\n      <stop offset=\"0\" stop-color=\"#1417cc\" stop-opacity=\"1\"/>\n      <stop offset=\"0.5\" stop-color=\"#1517cc\" stop-opacity=\"0\"/>\n      <stop offset=\"1\" stop-color=\"#1517cc\" stop-opacity=\"1\"/>\n    </linearGradient>\n  </defs>\n  <g transform=\"scale(0.39)\">\n  <rect width=\"256\" height=\"256\" rx=\"55\" ry=\"55\" x=\"0\" y=\"0\" fill=\"#1517cc\"/>\n  <rect width=\"246\" height=\"246\" rx=\"50\" ry=\"50\" x=\"5\" y=\"5\" fill=\"#5252f4\"/>\n  <rect width=\"236\" height=\"236\" rx=\"45\" ry=\"45\" x=\"10\" y=\"10\" fill=\"url(#OpenSearchg)\"/>\n  <path fill=\"none\" stroke=\"#fff\" stroke-width=\"26\" d=\"M 178 103 A 74 74 0 1 1  30,103 A 74 74 0 1 1  178 103 z\" transform=\"matrix(0.918696,0,0,0.918696,4.331024,5.50348)\"/>\n  <rect fill=\"#fff\" stroke=\"none\" width=\"102.33237\" height=\"39.089138\" x=\"211.87753\" y=\"-19.544645\" transform=\"matrix(0.707107,0.707107,-0.707107,0.707107,0,0)\"/>\n  </g>\n</svg>"
+            }
+        },
         "/getQuestions": {
             "get": {
                 "summary": "Get Sample Interview Questions",
                 "description": "Get Sample Interview Questions",
                 "operationId": "GetRecruitmentQuestions",
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ],
                 "parameters": [
                     {
+                        "name": "question",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string",
                             "title": "Question"
-                        },
-                        "name": "question",
-                        "in": "query"
+                        }
                     }
                 ],
                 "responses": {
@@ -44,11 +120,6 @@
                         }
                     }
                 },
-                "security": [
-                    {
-                        "HTTPBasic": []
-                    }
-                ],
                 "x-ibm-application-icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"OpenSearchicon\" viewBox=\"0 0 100 100\"> \n  <defs> \n    <linearGradient x1=\"0.085\" y1=\"0.085\" x2=\"0.915\" y2=\"0.915\" id=\"OpenSearchg\">\n      <stop offset=\"0\" stop-color=\"#1417cc\" stop-opacity=\"1\"/>\n      <stop offset=\"0.5\" stop-color=\"#1517cc\" stop-opacity=\"0\"/>\n      <stop offset=\"1\" stop-color=\"#1517cc\" stop-opacity=\"1\"/>\n    </linearGradient>\n  </defs>\n  <g transform=\"scale(0.39)\">\n  <rect width=\"256\" height=\"256\" rx=\"55\" ry=\"55\" x=\"0\" y=\"0\" fill=\"#1517cc\"/>\n  <rect width=\"246\" height=\"246\" rx=\"50\" ry=\"50\" x=\"5\" y=\"5\" fill=\"#5252f4\"/>\n  <rect width=\"236\" height=\"236\" rx=\"45\" ry=\"45\" x=\"10\" y=\"10\" fill=\"url(#OpenSearchg)\"/>\n  <path fill=\"none\" stroke=\"#fff\" stroke-width=\"26\" d=\"M 178 103 A 74 74 0 1 1  30,103 A 74 74 0 1 1  178 103 z\" transform=\"matrix(0.918696,0,0,0.918696,4.331024,5.50348)\"/>\n  <rect fill=\"#fff\" stroke=\"none\" width=\"102.33237\" height=\"39.089138\" x=\"211.87753\" y=\"-19.544645\" transform=\"matrix(0.707107,0.707107,-0.707107,0.707107,0,0)\"/>\n  </g>\n</svg>"
             }
         },
@@ -57,15 +128,20 @@
                 "summary": "Ask WatsonX Question",
                 "description": "Ask WatsonX Question",
                 "operationId": "getstandardquestion",
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ],
                 "parameters": [
                     {
+                        "name": "question",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string",
                             "title": "Question"
-                        },
-                        "name": "question",
-                        "in": "query"
+                        }
                     }
                 ],
                 "responses": {
@@ -90,11 +166,6 @@
                         }
                     }
                 },
-                "security": [
-                    {
-                        "HTTPBasic": []
-                    }
-                ],
                 "x-ibm-application-icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"OpenSearchicon\" viewBox=\"0 0 100 100\"> \n  <defs> \n    <linearGradient x1=\"0.085\" y1=\"0.085\" x2=\"0.915\" y2=\"0.915\" id=\"OpenSearchg\">\n      <stop offset=\"0\" stop-color=\"#1417cc\" stop-opacity=\"1\"/>\n      <stop offset=\"0.5\" stop-color=\"#1517cc\" stop-opacity=\"0\"/>\n      <stop offset=\"1\" stop-color=\"#1517cc\" stop-opacity=\"1\"/>\n    </linearGradient>\n  </defs>\n  <g transform=\"scale(0.39)\">\n  <rect width=\"256\" height=\"256\" rx=\"55\" ry=\"55\" x=\"0\" y=\"0\" fill=\"#1517cc\"/>\n  <rect width=\"246\" height=\"246\" rx=\"50\" ry=\"50\" x=\"5\" y=\"5\" fill=\"#5252f4\"/>\n  <rect width=\"236\" height=\"236\" rx=\"45\" ry=\"45\" x=\"10\" y=\"10\" fill=\"url(#OpenSearchg)\"/>\n  <path fill=\"none\" stroke=\"#fff\" stroke-width=\"26\" d=\"M 178 103 A 74 74 0 1 1  30,103 A 74 74 0 1 1  178 103 z\" transform=\"matrix(0.918696,0,0,0.918696,4.331024,5.50348)\"/>\n  <rect fill=\"#fff\" stroke=\"none\" width=\"102.33237\" height=\"39.089138\" x=\"211.87753\" y=\"-19.544645\" transform=\"matrix(0.707107,0.707107,-0.707107,0.707107,0,0)\"/>\n  </g>\n</svg>"
             }
         },
@@ -128,15 +199,20 @@
                 "summary": "Get AiOps Incident",
                 "description": "Get AiOps Incident",
                 "operationId": "getaiopsincident",
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ],
                 "parameters": [
                     {
+                        "name": "id",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string",
                             "title": "Id"
-                        },
-                        "name": "id",
-                        "in": "query"
+                        }
                     }
                 ],
                 "responses": {
@@ -161,11 +237,6 @@
                         }
                     }
                 },
-                "security": [
-                    {
-                        "HTTPBasic": []
-                    }
-                ],
                 "x-ibm-application-icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"OpenSearchicon\" viewBox=\"0 0 100 100\"> \n  <defs> \n    <linearGradient x1=\"0.085\" y1=\"0.085\" x2=\"0.915\" y2=\"0.915\" id=\"OpenSearchg\">\n      <stop offset=\"0\" stop-color=\"#1417cc\" stop-opacity=\"1\"/>\n      <stop offset=\"0.5\" stop-color=\"#1517cc\" stop-opacity=\"0\"/>\n      <stop offset=\"1\" stop-color=\"#1517cc\" stop-opacity=\"1\"/>\n    </linearGradient>\n  </defs>\n  <g transform=\"scale(0.39)\">\n  <rect width=\"256\" height=\"256\" rx=\"55\" ry=\"55\" x=\"0\" y=\"0\" fill=\"#1517cc\"/>\n  <rect width=\"246\" height=\"246\" rx=\"50\" ry=\"50\" x=\"5\" y=\"5\" fill=\"#5252f4\"/>\n  <rect width=\"236\" height=\"236\" rx=\"45\" ry=\"45\" x=\"10\" y=\"10\" fill=\"url(#OpenSearchg)\"/>\n  <path fill=\"none\" stroke=\"#fff\" stroke-width=\"26\" d=\"M 178 103 A 74 74 0 1 1  30,103 A 74 74 0 1 1  178 103 z\" transform=\"matrix(0.918696,0,0,0.918696,4.331024,5.50348)\"/>\n  <rect fill=\"#fff\" stroke=\"none\" width=\"102.33237\" height=\"39.089138\" x=\"211.87753\" y=\"-19.544645\" transform=\"matrix(0.707107,0.707107,-0.707107,0.707107,0,0)\"/>\n  </g>\n</svg>"
             }
         },
@@ -174,24 +245,29 @@
                 "summary": "Ask Watson X Email",
                 "description": "Ask WatsonX Email",
                 "operationId": "getstandardwxoemail",
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ],
                 "parameters": [
                     {
+                        "name": "customer",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string",
                             "title": "Customer"
-                        },
-                        "name": "customer",
-                        "in": "query"
+                        }
                     },
                     {
+                        "name": "emaildate",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string",
                             "title": "Emaildate"
-                        },
-                        "name": "emaildate",
-                        "in": "query"
+                        }
                     }
                 ],
                 "responses": {
@@ -216,11 +292,6 @@
                         }
                     }
                 },
-                "security": [
-                    {
-                        "HTTPBasic": []
-                    }
-                ],
                 "x-ibm-application-icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"OpenSearchicon\" viewBox=\"0 0 100 100\"> \n  <defs> \n    <linearGradient x1=\"0.085\" y1=\"0.085\" x2=\"0.915\" y2=\"0.915\" id=\"OpenSearchg\">\n      <stop offset=\"0\" stop-color=\"#1417cc\" stop-opacity=\"1\"/>\n      <stop offset=\"0.5\" stop-color=\"#1517cc\" stop-opacity=\"0\"/>\n      <stop offset=\"1\" stop-color=\"#1517cc\" stop-opacity=\"1\"/>\n    </linearGradient>\n  </defs>\n  <g transform=\"scale(0.39)\">\n  <rect width=\"256\" height=\"256\" rx=\"55\" ry=\"55\" x=\"0\" y=\"0\" fill=\"#1517cc\"/>\n  <rect width=\"246\" height=\"246\" rx=\"50\" ry=\"50\" x=\"5\" y=\"5\" fill=\"#5252f4\"/>\n  <rect width=\"236\" height=\"236\" rx=\"45\" ry=\"45\" x=\"10\" y=\"10\" fill=\"url(#OpenSearchg)\"/>\n  <path fill=\"none\" stroke=\"#fff\" stroke-width=\"26\" d=\"M 178 103 A 74 74 0 1 1  30,103 A 74 74 0 1 1  178 103 z\" transform=\"matrix(0.918696,0,0,0.918696,4.331024,5.50348)\"/>\n  <rect fill=\"#fff\" stroke=\"none\" width=\"102.33237\" height=\"39.089138\" x=\"211.87753\" y=\"-19.544645\" transform=\"matrix(0.707107,0.707107,-0.707107,0.707107,0,0)\"/>\n  </g>\n</svg>"
             }
         },
@@ -229,24 +300,29 @@
                 "summary": "Ask Watson X Content",
                 "description": "Ask WatsonX Content",
                 "operationId": "getstandardwxoecontent",
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ],
                 "parameters": [
                     {
+                        "name": "data",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string",
                             "title": "Data"
-                        },
-                        "name": "data",
-                        "in": "query"
+                        }
                     },
                     {
+                        "name": "question",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string",
                             "title": "Question"
-                        },
-                        "name": "question",
-                        "in": "query"
+                        }
                     }
                 ],
                 "responses": {
@@ -271,11 +347,49 @@
                         }
                     }
                 },
+                "x-ibm-application-icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"OpenSearchicon\" viewBox=\"0 0 100 100\"> \n  <defs> \n    <linearGradient x1=\"0.085\" y1=\"0.085\" x2=\"0.915\" y2=\"0.915\" id=\"OpenSearchg\">\n      <stop offset=\"0\" stop-color=\"#1417cc\" stop-opacity=\"1\"/>\n      <stop offset=\"0.5\" stop-color=\"#1517cc\" stop-opacity=\"0\"/>\n      <stop offset=\"1\" stop-color=\"#1517cc\" stop-opacity=\"1\"/>\n    </linearGradient>\n  </defs>\n  <g transform=\"scale(0.39)\">\n  <rect width=\"256\" height=\"256\" rx=\"55\" ry=\"55\" x=\"0\" y=\"0\" fill=\"#1517cc\"/>\n  <rect width=\"246\" height=\"246\" rx=\"50\" ry=\"50\" x=\"5\" y=\"5\" fill=\"#5252f4\"/>\n  <rect width=\"236\" height=\"236\" rx=\"45\" ry=\"45\" x=\"10\" y=\"10\" fill=\"url(#OpenSearchg)\"/>\n  <path fill=\"none\" stroke=\"#fff\" stroke-width=\"26\" d=\"M 178 103 A 74 74 0 1 1  30,103 A 74 74 0 1 1  178 103 z\" transform=\"matrix(0.918696,0,0,0.918696,4.331024,5.50348)\"/>\n  <rect fill=\"#fff\" stroke=\"none\" width=\"102.33237\" height=\"39.089138\" x=\"211.87753\" y=\"-19.544645\" transform=\"matrix(0.707107,0.707107,-0.707107,0.707107,0,0)\"/>\n  </g>\n</svg>"
+            },
+            "post": {
+                "summary": "Ask Watson Xv2",
+                "description": "Ask WatsonX Contentv2",
+                "operationId": "getstandardwxoecontentv2",
                 "security": [
                     {
                         "HTTPBasic": []
                     }
                 ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Question"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/results"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
                 "x-ibm-application-icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"OpenSearchicon\" viewBox=\"0 0 100 100\"> \n  <defs> \n    <linearGradient x1=\"0.085\" y1=\"0.085\" x2=\"0.915\" y2=\"0.915\" id=\"OpenSearchg\">\n      <stop offset=\"0\" stop-color=\"#1417cc\" stop-opacity=\"1\"/>\n      <stop offset=\"0.5\" stop-color=\"#1517cc\" stop-opacity=\"0\"/>\n      <stop offset=\"1\" stop-color=\"#1517cc\" stop-opacity=\"1\"/>\n    </linearGradient>\n  </defs>\n  <g transform=\"scale(0.39)\">\n  <rect width=\"256\" height=\"256\" rx=\"55\" ry=\"55\" x=\"0\" y=\"0\" fill=\"#1517cc\"/>\n  <rect width=\"246\" height=\"246\" rx=\"50\" ry=\"50\" x=\"5\" y=\"5\" fill=\"#5252f4\"/>\n  <rect width=\"236\" height=\"236\" rx=\"45\" ry=\"45\" x=\"10\" y=\"10\" fill=\"url(#OpenSearchg)\"/>\n  <path fill=\"none\" stroke=\"#fff\" stroke-width=\"26\" d=\"M 178 103 A 74 74 0 1 1  30,103 A 74 74 0 1 1  178 103 z\" transform=\"matrix(0.918696,0,0,0.918696,4.331024,5.50348)\"/>\n  <rect fill=\"#fff\" stroke=\"none\" width=\"102.33237\" height=\"39.089138\" x=\"211.87753\" y=\"-19.544645\" transform=\"matrix(0.707107,0.707107,-0.707107,0.707107,0,0)\"/>\n  </g>\n</svg>"
             }
         },
@@ -286,22 +400,22 @@
                 "operationId": "getstandardwxoecurated",
                 "parameters": [
                     {
+                        "name": "question",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string",
                             "title": "Question"
-                        },
-                        "name": "question",
-                        "in": "query"
+                        }
                     },
                     {
+                        "name": "projectId",
+                        "in": "query",
                         "required": true,
                         "schema": {
                             "type": "string",
                             "title": "Projectid"
-                        },
-                        "name": "projectId",
-                        "in": "query"
+                        }
                     }
                 ],
                 "responses": {
@@ -326,49 +440,122 @@
                         }
                     }
                 },
-                "security": [
-                    {
-                        "APIKeyHeader": []
-                    }
-                ],
                 "x-ibm-application-icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" id=\"OpenSearchicon\" viewBox=\"0 0 100 100\"> \n  <defs> \n    <linearGradient x1=\"0.085\" y1=\"0.085\" x2=\"0.915\" y2=\"0.915\" id=\"OpenSearchg\">\n      <stop offset=\"0\" stop-color=\"#1417cc\" stop-opacity=\"1\"/>\n      <stop offset=\"0.5\" stop-color=\"#1517cc\" stop-opacity=\"0\"/>\n      <stop offset=\"1\" stop-color=\"#1517cc\" stop-opacity=\"1\"/>\n    </linearGradient>\n  </defs>\n  <g transform=\"scale(0.39)\">\n  <rect width=\"256\" height=\"256\" rx=\"55\" ry=\"55\" x=\"0\" y=\"0\" fill=\"#1517cc\"/>\n  <rect width=\"246\" height=\"246\" rx=\"50\" ry=\"50\" x=\"5\" y=\"5\" fill=\"#5252f4\"/>\n  <rect width=\"236\" height=\"236\" rx=\"45\" ry=\"45\" x=\"10\" y=\"10\" fill=\"url(#OpenSearchg)\"/>\n  <path fill=\"none\" stroke=\"#fff\" stroke-width=\"26\" d=\"M 178 103 A 74 74 0 1 1  30,103 A 74 74 0 1 1  178 103 z\" transform=\"matrix(0.918696,0,0,0.918696,4.331024,5.50348)\"/>\n  <rect fill=\"#fff\" stroke=\"none\" width=\"102.33237\" height=\"39.089138\" x=\"211.87753\" y=\"-19.544645\" transform=\"matrix(0.707107,0.707107,-0.707107,0.707107,0,0)\"/>\n  </g>\n</svg>"
             }
         }
     },
     "components": {
         "schemas": {
+            "Crime": {
+                "properties": {
+                    "Month": {
+                        "type": "string",
+                        "title": "Month"
+                    },
+                    "PoliceForce": {
+                        "type": "string",
+                        "title": "Policeforce"
+                    },
+                    "Location": {
+                        "type": "string",
+                        "title": "Location"
+                    },
+                    "CrimeDetails": {
+                        "type": "string",
+                        "title": "Crimedetails"
+                    },
+                    "LastAction": {
+                        "type": "string",
+                        "title": "Lastaction"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "Month",
+                    "PoliceForce",
+                    "Location",
+                    "CrimeDetails",
+                    "LastAction"
+                ],
+                "title": "Crime"
+            },
+            "Crimes": {
+                "properties": {
+                    "items": {
+                        "items": {
+                            "$ref": "#/components/schemas/Crime"
+                        },
+                        "type": "array",
+                        "title": "Items"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "items"
+                ],
+                "title": "Crimes"
+            },
             "Details": {
                 "properties": {
                     "id": {
-                        "type": "string",
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            }
+
+                        ],
                         "title": "Id"
                     },
                     "rank": {
-                        "type": "integer",
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            }
+                        ],
                         "title": "Rank"
                     },
                     "time": {
-                        "type": "integer",
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            }
+                        ],
                         "title": "Time"
                     },
                     "policyId": {
-                        "type": "string",
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            }
+                        ],
                         "title": "Policyid"
                     },
                     "subsumedUnions": {
-                        "items": {},
-                        "type": "array",
+                        "anyOf": [
+                            {
+                                "items": {},
+                                "type": "array"
+                            }
+                        ],
                         "title": "Subsumedunions"
                     },
                     "notification": {
-                        "items": {
-                            "$ref": "#/components/schemas/NotificationItem"
-                        },
-                        "type": "array",
+                        "anyOf": [
+                            {
+                                "items": {
+                                    "$ref": "#/components/schemas/NotificationItem"
+                                },
+                                "type": "array"
+                            }
+                        ],
                         "title": "Notification"
                     },
                     "policyExecutionOrder": {
-                        "type": "integer",
+                        "anyOf": [
+                            {
+                                "type": "integer"
+                            }
+                        ],
                         "title": "Policyexecutionorder"
                     }
                 },
@@ -415,7 +602,11 @@
                         "title": "Type"
                     },
                     "source": {
-                        "type": "string",
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            }
+                        ],
                         "title": "Source"
                     },
                     "details": {
@@ -512,6 +703,35 @@
                 ],
                 "title": "Item"
             },
+            "Location": {
+                "properties": {
+                    "location": {
+                        "type": "string",
+                        "title": "Location"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "location"
+                ],
+                "title": "Location"
+            },
+            "Locations": {
+                "properties": {
+                    "locations": {
+                        "items": {
+                            "$ref": "#/components/schemas/Location"
+                        },
+                        "type": "array",
+                        "title": "Locations"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "locations"
+                ],
+                "title": "Locations"
+            },
             "Message": {
                 "properties": {
                     "question": {
@@ -550,6 +770,27 @@
                     "details"
                 ],
                 "title": "NotificationItem"
+            },
+            "Question": {
+                "properties": {
+                    "data": {
+                        "type": "string",
+                        "title": "Data"
+                    },
+                    "question": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            }
+                        ],
+                        "title": "Question"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "data"
+                ],
+                "title": "Question"
             },
             "ValidationError": {
                 "properties": {

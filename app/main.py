@@ -9,7 +9,7 @@ from fastapi import File, UploadFile
 from typing import  Annotated, List,Union
 
 
-from app.models import Incidents,Item,Crime,Crimes,Locations,Location
+from app.models import Incidents,Item,Crime,Crimes,Locations,Location,Opps
 
 from pydantic import BaseModel, Field
 from app.genai import get_details
@@ -21,7 +21,7 @@ from app.genai import generateContent
 from app.genai import callRAG
 from app.postgrescrimes import get_crime_location
 from app.postgrescrimes import get_crimes
-
+from app.mock import getOpps
 
 
 class Content(BaseModel):
@@ -61,19 +61,30 @@ security = HTTPBasic()
 
 api_key_header = APIKeyHeader(name="X-API-Key")
 
-@app.get("/getCrimes",summary="Get Crimes by Area", description="Get Crimes by area", operation_id="GetCrimesByArea",openapi_extra=extendedTags)
-async def root(area:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> List[Crime]:
-    value = get_crimes(area)
-    print(value)
+@app.get("/getOpps",summary="Get My Opps", description="Get My Opps", operation_id="GetMyOpps",openapi_extra=extendedTags)
+async def root(credentials: HTTPBasicCredentials = Depends(security)  ) -> Opps:
+    value = getOpps()
+    rtnValue =  {"opps": value}
+    
+    print(rtnValue)
  
-    return value
+    return rtnValue
+
+@app.get("/getCrimes",summary="Get Crimes by Area", description="Get Crimes by area", operation_id="GetCrimesByArea",openapi_extra=extendedTags)
+async def root(area:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> Crimes:
+    value = get_crimes(area)
+    rtnValue =  {"items": value}
+    
+    print(rtnValue)
+ 
+    return rtnValue
 
 @app.get("/getCrimeAreas",summary="Get Crime Area", description="Get Crime area", operation_id="GetCrimeArea",openapi_extra=extendedTags)
-async def root(credentials: HTTPBasicCredentials = Depends(security)  ) -> List[Location]:
+async def root(credentials: HTTPBasicCredentials = Depends(security)  ) -> Locations:
     value = get_crime_location()
-
-    print(value)
-    return value
+    rtnValue = {"locations": value }
+    print(rtnValue)
+    return rtnValue
 
 @app.get("/getQuestions",summary="Get Sample Interview Questions", description="Get Sample Interview Questions", operation_id="GetRecruitmentQuestions",openapi_extra=extendedTags)
 async def root(question:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> Message:
