@@ -37,7 +37,7 @@ def get_crimes_type(location:str,type:str):
         print("The number of parts: ", cur.rowcount)
         for row in rows:
       
-            crime = {"Month": row[2],"PoliceForce": row[3],"Location": row[7],"CrimeDetails": row[10], "LastAction": row[11]}
+            crime = {"CrimeId": row[1], "Month": row[2],"PoliceForce": row[3],"Location": row[7],"CrimeDetails": row[10], "LastAction": row[11]}
   
             crimes.append(crime)
         cur.close()
@@ -66,7 +66,7 @@ def get_crimes(location:str):
         print("The number of parts: ", cur.rowcount)
         for row in rows:
       
-            crime = {"Month": row[2],"PoliceForce": row[3],"Location": row[7],"CrimeDetails": row[10], "LastAction": row[11]}
+            crime = {"CrimeId": row[1],"Month": row[2],"PoliceForce": row[3],"Location": row[7],"CrimeDetails": row[10], "LastAction": row[11]}
   
             crimes.append(crime)
         cur.close()

@@ -1,7 +1,7 @@
 import requests
 import json
-from app.models import Incidents
-from app.models import Item
+from app.archive.models import Incidents
+from app.archive.models import Item
 import os
 from dotenv import load_dotenv
 
