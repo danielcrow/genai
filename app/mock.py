@@ -20,7 +20,7 @@ def getContactDetails(Contact):
     if(Contact == "ABC123"):
         return {"Contact":"ABC123",  "CustomerName":"Daniel Crow", "EmailAddress": "daniel.j.crow@gmail.com","Likes":"Football, Triathlon"}
     else:
-        return {"Contact":"01010102",  "CustomerName":"Douglas Coombs","EmailAddress": "douglas.coombs@gmail.com","Likes":"Football, Wine"}
+        return {"Contact":"ABD123",  "CustomerName":"Douglas Coombs","EmailAddress": "douglas.coombs@gmail.com","Likes":"Football, Wine"}
  
 
     
