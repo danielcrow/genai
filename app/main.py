@@ -9,7 +9,7 @@ from fastapi import File, UploadFile
 from typing import  Annotated, List,Union
 
 
-from app.models import Incidents,Item,Crime,Crimes,Locations,Location,Opps
+from app.models import Incidents,Item,Crime,Crimes,Locations,Location,Opps,OppDetails,ContactDetails
 
 from pydantic import BaseModel, Field
 from app.genai import get_details
@@ -22,6 +22,8 @@ from app.genai import callRAG
 from app.postgrescrimes import get_crime_location
 from app.postgrescrimes import get_crimes
 from app.mock import getOpps
+from app.mock import getOppDetails
+from app.mock import getContactDetails
 
 
 class Content(BaseModel):
@@ -60,6 +62,25 @@ app = FastAPI()
 security = HTTPBasic()
 
 api_key_header = APIKeyHeader(name="X-API-Key")
+
+
+@app.get("/getContactDetails",summary="Get Contact Details", description="Get Contact Details", operation_id="GetContactDetails",openapi_extra=extendedTags)
+async def root(Contact:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> ContactDetails:
+    value = getContactDetails(Contact)
+    rtnValue =  value
+    
+    print(rtnValue)
+ 
+    return rtnValue
+
+@app.get("/getOppDetails",summary="Get Opp Details", description="Get Opp Details", operation_id="GetOppDetails",openapi_extra=extendedTags)
+async def root(OppId:str, credentials: HTTPBasicCredentials = Depends(security)  ) -> OppDetails:
+    value = getOppDetails(OppId)
+    rtnValue =  value
+    
+    print(rtnValue)
+ 
+    return rtnValue
 
 @app.get("/getOpps",summary="Get My Opps", description="Get My Opps", operation_id="GetMyOpps",openapi_extra=extendedTags)
 async def root(credentials: HTTPBasicCredentials = Depends(security)  ) -> Opps:
