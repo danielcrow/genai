@@ -24,6 +24,7 @@ from app.postgrescrimes import get_crimes
 from app.mock import getOpps
 from app.mock import getOppDetails
 from app.mock import getContactDetails
+from app.postgrescrimes import get_crimes_type
 
 
 class Content(BaseModel):
@@ -98,6 +99,14 @@ async def root(area:str, credentials: HTTPBasicCredentials = Depends(security)  
     
     print(rtnValue)
  
+    return rtnValue
+
+
+@app.get("/getCrimeAreasAndType",summary="Get Crime Area and Type", description="Get Crime Area and Type", operation_id="GetCrimeAreaAndType",openapi_extra=extendedTags)
+async def root(area:str,type:str,credentials: HTTPBasicCredentials = Depends(security)  ) -> Crimes:
+    value = get_crimes_type(area,type)
+    rtnValue = {"items": value }
+    print(rtnValue)
     return rtnValue
 
 @app.get("/getCrimeAreas",summary="Get Crime Area", description="Get Crime area", operation_id="GetCrimeArea",openapi_extra=extendedTags)

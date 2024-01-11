@@ -21,6 +21,35 @@ def getConnection():
             password=pwd)
     return conn
 
+def get_crimes_type(location:str,type:str):
+    try:
+        conn = getConnection()
+
+
+        sql = "select * from public.\"Crimes\" where lsoaname ~ '" + location+ "' and crimetype='" + type +"';"
+        #sql = "select * from public.\"Crimes\" where fallswithin like %s;"
+        print(sql)
+        cur = conn.cursor()
+
+        cur.execute(sql)
+        rows = cur.fetchall()
+        crimes = []
+        print("The number of parts: ", cur.rowcount)
+        for row in rows:
+      
+            crime = {"Month": row[2],"PoliceForce": row[3],"Location": row[7],"CrimeDetails": row[10], "LastAction": row[11]}
+  
+            crimes.append(crime)
+        cur.close()
+       
+        return crimes
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    
+    finally:
+        if conn is not None:
+            conn.close()
+
 def get_crimes(location:str):
     try:
         conn = getConnection()
