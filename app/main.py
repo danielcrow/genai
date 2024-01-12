@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
-from app.genai.hr import jobinterviews
-from app.genai.watsonx import watsonx
+from app.genaix.hr import jobinterviews
+from app.genaix.watsonx import watsonx
 from app.police import police
 from app.carsales import carsales
 from app.utils.utils import custom_openapi
