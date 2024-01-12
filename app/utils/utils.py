@@ -1,5 +1,6 @@
 import json
 import os
+from fastapi.openapi.utils import get_openapi
 from ibm_watson_machine_learning.foundation_models import Model
 from ibm_watson_machine_learning.metanames import GenTextParamsMetaNames as GenParams
 from ibm_watson_machine_learning.foundation_models.utils.enums import ModelTypes, DecodingMethods
@@ -89,3 +90,24 @@ def getExtendedTags():
 
     extendedTags = {"x-ibm-application-icon":svgimage}
     return extendedTags
+
+def custom_openapi(app):
+    
+    if app.openapi_schema:
+        return app.openapi_schema
+    
+    openapi_schema = get_openapi(
+        title="Sales",
+        version="1.0.0",
+        description="Sales",
+        openapi_version="3.0.0",
+        routes=app.routes,
+    )
+
+    openapi_schema["servers"] = [{
+        "url":"https://genai.1970c02pqord.eu-gb.codeengine.appdomain.cloud"},
+        {"url":"http://localhost:8000"
+    }]
+    app.openapi_schema = openapi_schema
+  
+    return app.openapi_schema

@@ -22,13 +22,13 @@ def getContactDetails(Contact):
 @router.get("/getOppDetails", response_model=OppDetails, summary="Get Opp Details", description="Get Opp Details", operation_id="GetOppDetails",openapi_extra=extendedTags)
 def getOppDetails(OppId):
     if(OppId == "01010101"):
-        return {"OppId":"01010101",  "CustomerName":"Daniel Crow", "OpportunityName": "RB-Phantom","Contact":"ABC123","Model": "Phantom", "CloseDate":"12/03/2024","VehicleType":"New","Stage":"New"}
+        return {"OppId":"01010101",  "CustomerName":"Daniel Crow", "OpportunityName": "Ghost","Contact":"ABC123","Model": "Ghost", "CloseDate":"12/03/2024","VehicleType":"New","Stage":"New"}
     else:
         return {"OppId":"01010102",  "CustomerName":"Douglas Coombs", "OpportunityName": "Spectre","Contact":"ABD123","Model": "Spectre", "CloseDate":"12/05/2024","VehicleType":"New","Stage":"New"}
     
 
 @router.get("/getOpps",summary="Get My Opps", response_model=Opps, description="Get My Opps", operation_id="GetMyOpps",openapi_extra=extendedTags)
 def getOpps():
-    return {"opps" : [{"OppId":"01010101",  "CustomerName":"Daniel Crow", "OpportunityName": "RB-Phantom"},{"OppId":"01010102",  "CustomerName":"Douglas Coombs", "OpportunityName": "Spectre"}]}
+    return {"opps" : [{"OppId":"01010101",  "CustomerName":"Daniel Crow", "OpportunityName": "Ghost"},{"OppId":"01010102",  "CustomerName":"Douglas Coombs", "OpportunityName": "Spectre"}]}
 
 
