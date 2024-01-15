@@ -8,6 +8,7 @@ __pycache__/
 
 # Distribution / packaging
 genai/
+app/archive/
 .Python
 build/
 develop-eggs/
