@@ -12,7 +12,7 @@ router = APIRouter(dependencies=[Depends(security)])
 extendedTags = getExtendedTags()
 
 @router.get("/getContactDetails",response_model=ContactDetails, summary="Get Contact Details", description="Get Contact Details", operation_id="GetContactDetails",openapi_extra=extendedTags)
-def getContactDetails(Contact):
+def getContactDetails(Contact:str):
     if(Contact == "ABC123"):
         return {"Contact":"ABC123",  "CustomerName":"Daniel Crow", "EmailAddress": "daniel.j.crow@gmail.com","Likes":"Football, Triathlon"}
     else:
@@ -20,7 +20,7 @@ def getContactDetails(Contact):
 
 
 @router.get("/getOppDetails", response_model=OppDetails, summary="Get Opp Details", description="Get Opp Details", operation_id="GetOppDetails",openapi_extra=extendedTags)
-def getOppDetails(OppId):
+def getOppDetails(OppId:str):
     if(OppId == "01010101"):
         return {"OppId":"01010101",  "CustomerName":"Daniel Crow", "OpportunityName": "Ghost","Contact":"ABC123","Model": "Ghost", "CloseDate":"12/03/2024","VehicleType":"New","Stage":"New"}
     else:

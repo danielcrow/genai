@@ -14,7 +14,7 @@ class results(BaseModel):
     result: str
 
 @router.get("/askQuestion",response_model=results,summary="Ask WatsonX Question", description="Ask WatsonX Question", operation_id="getstandardquestion",openapi_extra=extendedTags)
-def ask_question(data):
+def ask_question(data:str):
     model = getModel("meta-llama/llama-2-70b-chat")
     defaultPrompt = f"""[INST]<<SYS>>You are a helpful assistant that answers users questions using the data provided. The data has been provided between the "#### START OF DATA ####" and "#### END OF DATA ####" tags. The answer should never mention that you are using data to answer the question. If no relevant data has been provided you should answer "I have not been trained on that information.".<</SYS>>
         #### START OF DATA ####
