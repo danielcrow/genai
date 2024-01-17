@@ -61,6 +61,7 @@
                     {
                         "required": true,
                         "schema": {
+                            "type": "string",
                             "title": "Data"
                         },
                         "name": "data",
@@ -340,6 +341,7 @@
                     {
                         "required": true,
                         "schema": {
+                            "type": "string",
                             "title": "Contact"
                         },
                         "name": "Contact",
@@ -385,6 +387,7 @@
                     {
                         "required": true,
                         "schema": {
+                            "type": "string",
                             "title": "Oppid"
                         },
                         "name": "OppId",
