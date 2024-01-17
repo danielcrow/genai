@@ -27,3 +27,14 @@ class ContactDetails(BaseModel):
     CustomerName:str
     EmailAddress:str
     Likes:str
+    
+class CarSpec(BaseModel):
+    OppId: str  
+    CarModel: str
+    CarValue: float
+    
+class ContactHistory(BaseModel):
+    Contact: str
+    CustomerName: str
+    PreviousBuyer: bool
+    PreviousCar: str
