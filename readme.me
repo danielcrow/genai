@@ -1,1 +1,28 @@
-<h1>FastAPI framework,  with appropiate annotations for WxO</h1>
+FastAPI framework,  with appropiate annotations for WxO
+
+
+This is also an example of using mocked data in the carsales example,  using postgressql in the police example and using prompts in the genaix examples.
+
+
+carsales shows looking up opps, if you don't have access to a salesforce enviroment this is useful to
+create mock services.
+
+police is how you can query postgresql,  the postgresql in question hold crimes database in the UK.
+To use a postgresql, in my example you would need to create your own database and create enviroment vars for
+the following:
+
+PSQL_HOST= IP Adddres of host.
+PSQL_DB=your database name
+PSQL_UID=psql userid
+PSQL_PWD=psql password.
+
+
+IN the Gen AI examples,  you can see a nice way of passing data and your prompt, which is sueful when creating templated prompts.
+I suggest you use prompt lab to create prompt examples.
+
+To use this you need the following enviroment vars.
+
+GENAI_API_ENDPOINT=Watson ML endpoint
+GENAI_KEY=API Key from your account that has access to the WatsonX project
+PROJECT_ID=Watson X project ID.
+
